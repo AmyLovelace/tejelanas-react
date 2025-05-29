@@ -1,0 +1,9 @@
+div:where(.swal2-container).swal2-center>.swal2-popup {
+
+    margin-top: 45px;
+}
+
+.swal2-container .swal2-html-container {
+    text-align:start;
+    padding-left: 20px;
+}

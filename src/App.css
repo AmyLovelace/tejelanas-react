@@ -1,0 +1,23 @@
+.MenuOption {
+  display: flex;
+  align-items: center;
+  /* padding: 10px; */
+  cursor: pointer;
+  transition: 800ms;
+}
+.MenuOption:hover {
+  /* background-color: #f7ae00; */
+  /* color: #f7ae00;
+  border-bottom: #f7ae00 1px solid; */
+  transform: scale(1.05);
+}
+
+.highlight-text {
+  border-left: #f7ae00 7px solid;
+  padding-left: 6px;
+}
+
+.selected {
+  color: #ffc02c !important;
+  border-bottom: #ffc02c 1px solid;
+}
