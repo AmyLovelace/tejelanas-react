@@ -1,6 +1,8 @@
 import { SvgIcon } from '@mui/material';
 import {HomeIcon, EnvelopeIcon, MapIcon} from '@heroicons/react/24/outline'
 import { Checkroom, School } from '@mui/icons-material';
+import GroupsIcon from '@mui/icons-material/Groups';
+import LiveHelpIcon from '@mui/icons-material/LiveHelp';
 
 export const navItems = [
     {
@@ -14,6 +16,18 @@ export const navItems = [
       id:'Inicio',
       dropdown: [],
       role: []
+    },
+    {
+      title: 'Nosotros',
+      icon: (
+        <SvgIcon fontSize="small" sx={{mr:1}}>
+          {/* <ListBulletIcon /> */}
+          <GroupsIcon />
+          </SvgIcon>
+      ),
+      id: 'Nosotros',
+      dropdown: [],
+      role: ['admin', 'user']
     },
     {
       title: 'Productos',
@@ -38,6 +52,18 @@ export const navItems = [
       id: 'Servicios',
       dropdown: [],
       role: []
+    },
+    {
+      title: 'Preguntas',
+      icon: (
+        <SvgIcon fontSize="small" sx={{mr:1}}>
+          {/* <ListBulletIcon /> */}
+          <LiveHelpIcon />
+          </SvgIcon>
+      ),
+      id: 'Preguntas',
+      dropdown: [],
+      role: ['admin', 'user']
     },
     {
       title: 'Contacto',

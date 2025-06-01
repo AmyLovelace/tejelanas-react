@@ -45,7 +45,7 @@ const ServiceSlider = forwardRef((props, ref) => {
           throw new Error('Network response was not ok');
         }
         const data = await res.json();
-        console.log(data);
+        console.log("SERVICE DATA",data);
         setServiceData(data.data.servicios);
         setIsLoading(false);
       }
@@ -73,7 +73,7 @@ const ServiceSlider = forwardRef((props, ref) => {
 
   return (
     <Box mt={5} sx={{width:'100vw',maxWidth: '700px', minWidth: '200px', margin: '0 auto', padding: 4 }} ref={ref}>
-      <Typography variant="h4" component="h2" gutterBottom align="center" fontWeight="bold">
+      <Typography variant="h4" component="h2" gutterBottom align="center" fontWeight="bold" sx={{ mb: 2 }}>
         Nuestros Servicios
       </Typography>
       <Slider {...settings}>
@@ -90,6 +90,62 @@ const ServiceSlider = forwardRef((props, ref) => {
               <Typography variant="h6" component="div" align="center">
                 {el.nombre}
               </Typography>
+
+              <Box mt={2}>
+                <Typography variant="subtitle2">Cupos disponibles:</Typography>
+                <Box
+                  sx={{
+                    mt: 1,
+                    px: 2,
+                    py: 0.5,
+                    borderRadius: '20px',
+                    bgcolor: '#e1f5fe',
+                    fontSize: '0.875rem',
+                    color: '#01579b',
+                    fontWeight: 'bold',
+                    border: '1px solid #81d4fa',
+                    display: 'inline-block',
+                  }}
+                >
+                  {el.cupos}
+                </Box>
+              </Box>
+              <Box mt={2}>
+                <Typography variant="subtitle2">Fecha:</Typography>
+                <Box
+                  sx={{
+                    mt: 1,
+                    px: 2,
+                    py: 0.5,
+                    borderRadius: '20px',
+                    bgcolor: '#f3e5f5',
+                    fontSize: '0.875rem',
+                    color: '#6a1b9a',
+                    border: '1px solid #ce93d8',
+                    display: 'inline-block',
+                  }}
+                >
+                  📅 {el.fecha}
+                </Box>
+              </Box>
+              <Box mt={2}>
+                <Typography variant="subtitle2">Ubicación:</Typography>
+                <Box
+                  sx={{
+                    mt: 1,
+                    px: 2,
+                    py: 0.5,
+                    borderRadius: '20px',
+                    bgcolor: '#e8f5e9',
+                    fontSize: '0.875rem',
+                    color: '#2e7d32',
+                    border: '1px solid #a5d6a7',
+                    display: 'inline-block',
+                  }}
+                >
+                  📍 {el.ubicacion}
+                </Box>
+              </Box>
             </CardContent>
           </Card>
         ))}
