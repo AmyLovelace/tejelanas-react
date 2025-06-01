@@ -11,6 +11,9 @@ export const ScrollProvider = ({ children }) => {
     Mapa: useRef(null),
     Productos:useRef(null),
     Servicios: useRef(null),
+    Nosotros:useRef(null),
+    Preguntas:useRef(null),
+
   };
 
   const scrollToSection = (id) => {

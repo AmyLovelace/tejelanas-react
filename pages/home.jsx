@@ -6,8 +6,8 @@ import { useScrollContext } from "../src/context/ScrollContext";
 import Map from "../src/components/Map/Map";
 import ProductSlider from "../src/components/ProductSlider/ProductSlider";
 import ServiceSlider from "../src/components/ServiceSlider/ServiceSlider";
-import ContactSelect from "../src/components/ContactSelect/ContactSelect";
-import Municipio from "../src/components/Municipio/Municipio";
+import AboutUsSection from "../src/components/AboutUs/AboutUsSection";
+import FAQSection from "../src/components/Faq/FAQSection";
 
 const Home = () => {
   const { setActiveSection,sectionRefs } = useScrollContext();
@@ -18,7 +18,10 @@ const Home = () => {
       { id: "Servicios", ref: sectionRefs.Servicios },
       { id: "Productos", ref: sectionRefs.Productos },
       { id: "Contacto", ref: sectionRefs.Contacto },
-      { id: "Mapa", ref: sectionRefs.Mapa }
+      { id: "Mapa", ref: sectionRefs.Mapa },
+      { id: "Nosotros", ref: sectionRefs.Nosotros },
+      { id: "Preguntas", ref: sectionRefs.Preguntas }
+
 
     ];
 
@@ -50,11 +53,11 @@ const Home = () => {
   return (
     <Box component={'div'} display={'flex'} flexDirection={'column'} justifyContent={'center'} alignItems={'center'}>
         <Hero id="Inicio" ref={sectionRefs.Inicio}/>
+        <AboutUsSection id="Nosotros" ref={sectionRefs.Nosotros}/>
         <ProductSlider id="Productos" ref={sectionRefs.Productos} />
         <ServiceSlider id="Servicios" ref={sectionRefs.Servicios}/>
-        {/* <Municipio id="Municipio" ref={sectionRefs.Municipio}/> */}
+        <FAQSection id="Preguntas" ref={sectionRefs.Preguntas}/>
         <ContactForm id="Contacto" ref={sectionRefs.Contacto}/>
-        {/* <ContactSelect/> */}
         <Map id="Mapa" ref={sectionRefs.Mapa}/>
         
     </Box>

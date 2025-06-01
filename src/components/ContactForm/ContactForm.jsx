@@ -1,4 +1,4 @@
-import React, { forwardRef, useState } from 'react';
+import React, { forwardRef, useEffect, useState } from 'react';
 import { Box ,Typography,Grid,TextField, MenuItem,Select,Button,FormControl,InputLabel,TextareaAutosize} from '@mui/material';
 import { alertConf, alertSwal } from '../../../utils/alerts';
 import'./ContactForm.css';
@@ -8,15 +8,43 @@ const ContactForm = forwardRef((props, ref) => {
     name: '',
     email: '',
     message: '',
+    tipoConsulta: '',
+    itemSeleccionado: '',
   });
+  const [productos, setProductos] = useState([]);
+  const [servicios, setServicios] = useState([]); 
+  const itemsSeleccionables = formData.tipoConsulta === 'producto' ? productos : servicios;
+ 
 
+    useEffect(() => {
+      const fetchData = async () => {
+        try {
+          const res = await fetch('../../data/products-services.json'
+          );
+          if (!res.ok) {
+            throw new Error('Network response was not ok');
+          }
+          const data = await res.json();
+          console.log(data);
+          setProductos(data.data.productos);
+          setServicios(data.data.servicios);
+        }
+        catch (error) {
+          console.error('Error fetching data:', error);
+        }
+      }
+      fetchData();
+    }
+    , []);
   const validationMessages = {
     name: 'Nombre es un campo requerido',
     email: 'Email no válido',
     message: 'Mensaje es un campo requerido',
     successTitle: `Formulario enviado, ${formData.name}!`,
-    successText: `Serás notificado a ${formData.email} en breve. Gracias por contactar con la Municipalidad de Cholchol.`,
-    buttonText:'Entendido'
+    successText: `Serás notificado a ${formData.email} en breve. Gracias por contactar a Telejelanas Vivi!.`,
+    buttonText:'Entendido',
+    tipoConsulta: 'Debes seleccionar tipo de consulta',
+    itemSeleccionado: 'Debes seleccionar un producto o servicio',
   };
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -68,7 +96,8 @@ const ContactForm = forwardRef((props, ref) => {
         ¿Deseas enviar este mensaje con los siguientes datos?<br/>
         <strong>Nombre:</strong> ${formData.name} <br/>
         <strong>Email:</strong> ${formData.email} <br/>
-        <strong>Mensaje:</strong> ${formData.message}
+        <strong>Mensaje:</strong> ${formData.message} <br/>
+        <strong>Consulta:</strong> ${formData.tipoConsulta} : ${formData.itemSeleccionado}  
         </div>`,
         'Confirmar envío',
         'No enviar'
@@ -86,7 +115,7 @@ const ContactForm = forwardRef((props, ref) => {
     alertSwal('success',validationMessages.successTitle,validationMessages.successText,null,validationMessages.buttonText)
   };
   return (
-    <Box marginTop={4} id="hero" ref={ref} sx={{ my: 5 }} p={4}>
+    <Box marginTop={4} id="hero" ref={ref} sx={{maxWidth: '100%',maxWidth: 800}} p={4}>
       <Typography variant="h4" gutterBottom>
         Contáctanos 🚀
       </Typography>
@@ -96,7 +125,7 @@ const ContactForm = forwardRef((props, ref) => {
           <Typography variant="subtitle1" gutterBottom>
             Dirección:
           </Typography>
-          <Typography>José Joaquín Pérez, 449<br /> Cholchol, Araucanía, Chile</Typography>
+          <Typography >Carlos León Briceño 1002 Local 4<br /> Zapallar, Valparaiso, Chile</Typography>
 
           <Typography variant="subtitle1" mt={3}>
             Teléfono:
@@ -105,7 +134,7 @@ const ContactForm = forwardRef((props, ref) => {
           <Typography variant="subtitle1" mt={3}>
             Email:
           </Typography>
-          <a href="mailto:oficinadepartes@municholchol.cl">oficinadepartes@municholchol.cl</a>
+          <a href="mailto:tejelanas.vivi@tejedoras.cl">tejelanas.vivi@tejedoras.cl</a>
         </Grid>
 
         <Grid item xs={12} md={6}>
@@ -149,6 +178,41 @@ const ContactForm = forwardRef((props, ref) => {
               />
             </FormControl>
 
+            <FormControl fullWidth margin="normal" xs={12} md={6}>
+              <InputLabel>Tipo de consulta</InputLabel>
+              <Select
+                name="tipoConsulta"
+                value={formData.tipoConsulta}
+                label="Tipo de consulta"
+                onChange={handleChange}
+                onBlur={handleBlur}
+                required
+              >
+                <MenuItem value="producto">Producto</MenuItem>
+                <MenuItem value="servicio">Servicio</MenuItem>
+              </Select>
+            </FormControl>
+            {formData.tipoConsulta && (
+            <FormControl fullWidth margin="normal" xs={12} md={6}>
+              <InputLabel>{formData.tipoConsulta === 'producto' ? 'Producto' : 'Servicio'}</InputLabel>
+              <Select
+                name="itemSeleccionado"
+                value={formData.itemSeleccionado}
+                label={formData.tipoConsulta === 'producto' ? 'Producto' : 'Servicio'}
+                onChange={handleChange}
+                onBlur={handleBlur}
+                required
+              >
+                {itemsSeleccionables.map((item) => (
+                  <MenuItem key={item.id} value={item.nombre}>
+                    <Box>
+                      {item.nombre}
+                    </Box>
+                  </MenuItem>
+                ))}
+              </Select>
+            </FormControl>
+          )}
             <Box textAlign="center" mt={3}>
               <Button type="submit" variant="contained" color="primary">
                 Enviar
