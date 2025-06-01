@@ -4,7 +4,7 @@ import ContactForm from "../src/components/ContactForm/ContactForm";
 import { useEffect } from "react";
 import { useScrollContext } from "../src/context/ScrollContext";
 import Map from "../src/components/Map/Map";
-import FAQSection from "../src/components/Faq/FaqSection"
+import FAQSection from "../src/components/Q&A/FaqSection"
 import ProductSlider from "../src/components/ProductSlider/ProductSlider";
 import ServiceSlider from "../src/components/ServiceSlider/ServiceSlider";
 import AboutUsSection from "../src/components/AboutUs/AboutUsSection";
