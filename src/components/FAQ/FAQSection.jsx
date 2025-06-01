@@ -9,25 +9,25 @@ import {
 } from '@mui/material';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import ExpandLessIcon from '@mui/icons-material/ExpandLess';
+import { getFaq } from '../../api/service';
 const FAQSection = forwardRef((props, ref) => {
   const [faqData, setFaqData] = useState([]);
   const [loading, setLoading] = useState(true);
   const [openIndex, setOpenIndex] = useState(null);
 
   useEffect(() => {
-    const fetchFAQ = async () => {
-      try {
-        const res = await fetch('../../data/faq.json')
-        const json = await res.json();
-        setFaqData(json.data.filter(q => q.activo));
+    getFaq()
+      .then(data => {
+        console.log('Datos recibidos:', data);
+        setFaqData(data.data.filter(q => q.activo));
         setLoading(false);
-      } catch (err) {
-        console.error('Error loading FAQ:', err);
+      })
+      .catch(error => {
+        console.error('Error loading FAQ:', error);
         setLoading(false);
-      }
-    };
-    fetchFAQ();
+      });
   }, []);
+
 
   const toggle = (index) => {
     setOpenIndex(openIndex === index ? null : index);

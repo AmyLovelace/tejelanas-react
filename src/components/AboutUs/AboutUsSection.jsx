@@ -1,28 +1,22 @@
 import { forwardRef, useEffect, useState } from 'react';
 import { Box, Typography, Grid, CircularProgress } from '@mui/material';
+import { getAboutUs } from '../../api/service';
 
 const AboutUsSection = forwardRef((props, ref) => {
   const [isLoading, setIsLoading] = useState(true);
   const [aboutData, setAboutData] = useState(null);
 
   useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const res = await fetch('../../data/about-us.json')
-          if (!res.ok) {
-          throw new Error('Error al obtener datos');
-        }
-        const data = await res.json();
-        console.log('ABOUT DATA:', data);
-        setAboutData(data.data); 
-        setIsLoading(false);
-      } catch (error) {
-        console.error('Error fetching about data:', error);
-        setIsLoading(false);
-      }
-    };
-
-    fetchData();
+    getAboutUs()
+    .then(data => {
+      console.log('Datos recibidos:', data);
+      setAboutData(data.data); 
+      setIsLoading(false);
+    })
+    .catch(error => {
+      console.error('Error al llamar al servicio:', error);
+      setIsLoading(false);
+    });
   }, []);
 
 

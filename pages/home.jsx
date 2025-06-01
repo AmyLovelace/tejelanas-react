@@ -7,7 +7,7 @@ import Map from "../src/components/Map/Map";
 import ProductSlider from "../src/components/ProductSlider/ProductSlider";
 import ServiceSlider from "../src/components/ServiceSlider/ServiceSlider";
 import AboutUsSection from "../src/components/AboutUs/AboutUsSection";
-import FAQSection from "../src/components/Faq/FAQSection";
+import FAQSection from "../src/components/Faq/FaqSection";
 
 const Home = () => {
   const { setActiveSection,sectionRefs } = useScrollContext();

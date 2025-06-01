@@ -5,6 +5,7 @@ import { Box, Typography, Card, CardMedia, CardContent, CircularProgress } from 
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
 import { getPastelColor } from '../../../utils/general';
+import { getProductServices } from '../../api/service';
 
 
 const ProductSlider = forwardRef((props, ref) => {
@@ -30,32 +31,16 @@ const ProductSlider = forwardRef((props, ref) => {
   const [productsData, setProductsData] = useState([]);
 
   useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const res = await fetch('../../data/products-services.json'
-          // , 
-          // {
-          //   method: 'GET',
-          //   headers: {
-          //     'Content-Type': 'application/json',
-          //     'Authorization': 'Bearer ipss.get'
-          //   },
-          // }
-        );
-        if (!res.ok) {
-          throw new Error('Network response was not ok');
-        }
-        const data = await res.json();
-        console.log("PRODUCT DATA",data);
-        setProductsData(data.data.productos);
-        setIsLoading(false);
-      }
-      catch (error) {
-        console.error('Error fetching data:', error);
-        setIsLoading(false);
-      }
-    }
-    fetchData();
+    getProductServices()
+        .then(data => {
+          console.log('Datos recibidos:', data);
+          setProductsData(data.data.productos);
+          setIsLoading(false);
+        })
+        .catch(error => {
+          console.error('Error fetching data:', error);
+          setIsLoading(false);
+        });
   }
   , []);
 
