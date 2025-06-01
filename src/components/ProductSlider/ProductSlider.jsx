@@ -33,7 +33,7 @@ const ProductSlider = forwardRef((props, ref) => {
   useEffect(() => {
     getProductServices()
         .then(data => {
-          console.log('Datos recibidos:', data);
+          console.log('Datos recibidos en product slide:', data);
           setProductsData(data.data.productos);
           setIsLoading(false);
         })
