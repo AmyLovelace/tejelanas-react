@@ -2,6 +2,7 @@ import React, { forwardRef, useEffect, useState } from 'react';
 import { Box ,Typography,Grid,TextField, MenuItem,Select,Button,FormControl,InputLabel,TextareaAutosize} from '@mui/material';
 import { alertConf, alertSwal } from '../../../utils/alerts';
 import'./ContactForm.css';
+import { getProductServices } from '../../api/service';
 
 const ContactForm = forwardRef((props, ref) => {
   const [formData, setFormData] = useState({
@@ -14,28 +15,19 @@ const ContactForm = forwardRef((props, ref) => {
   const [productos, setProductos] = useState([]);
   const [servicios, setServicios] = useState([]); 
   const itemsSeleccionables = formData.tipoConsulta === 'producto' ? productos : servicios;
- 
 
-    useEffect(() => {
-      const fetchData = async () => {
-        try {
-          const res = await fetch('../../data/products-services.json'
-          );
-          if (!res.ok) {
-            throw new Error('Network response was not ok');
-          }
-          const data = await res.json();
-          console.log(data);
-          setProductos(data.data.productos);
-          setServicios(data.data.servicios);
-        }
-        catch (error) {
-          console.error('Error fetching data:', error);
-        }
-      }
-      fetchData();
-    }
-    , []);
+     useEffect(() => {
+       getProductServices()
+           .then(data => {
+             console.log('Datos recibidos en contact form:', data);
+             setProductos(data.data.productos);
+             setServicios(data.data.servicios);
+           })
+           .catch(error => {
+             console.error('Error fetching data:', error);
+           });
+     }
+     , []);
   const validationMessages = {
     name: 'Nombre es un campo requerido',
     email: 'Email no válido',
